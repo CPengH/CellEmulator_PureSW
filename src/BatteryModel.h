@@ -16,6 +16,7 @@ public:
     void setCurrentCapacity(double newCapacity);
 	void displayBatteryParams() const;
 	void initParams();
+	std::vector<std::pair<double, double>> socToOcvMap;
 
 private:
 	double soc;
@@ -24,7 +25,6 @@ private:
     double nominalCapacity;
     double currentCapacity;
 	bool isConnected;
-    std::vector<std::pair<double, double>> socToOcvMap;
 };
 
 #endif

@@ -12,6 +12,7 @@ public:
 private:
     BatteryModel& batteryModel;
     TestSchedule& testSchedule;
+    double getOcvBySoc(double soc);
 };
 
 #endif

@@ -3,6 +3,7 @@
 #include "BatteryModel.h"
 #include "TestSchedule.h"
 #include "SimulationEngine.h"
+#include "FileLogger.h"
 #include <vector>
 
 int main()
