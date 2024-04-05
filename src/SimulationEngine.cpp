@@ -1,5 +1,5 @@
 #include "SimulationEngine.h"
-#include "FileLogger.h"
+#include "CSVLogger.h"
 #include <iostream>
 
 SimulationEngine::SimulationEngine(BatteryModel& model, TestSchedule& schedule)
@@ -7,7 +7,7 @@ SimulationEngine::SimulationEngine(BatteryModel& model, TestSchedule& schedule)
 
 void SimulationEngine::runSimulation()
 {
-    std::unique_ptr<Logger> logger = std::make_unique<FileLogger>("app.log");
+    std::unique_ptr<Logger> logger = std::make_unique<CSVLogger>("log.csv");
 
     logger->log("Application started");
 
