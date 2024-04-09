@@ -4,7 +4,7 @@
 
 class BatteryModel{
 public:
-	BatteryModel(double capacity, const std::vector<std::pair<double, double>>& socToOcvMap);
+	BatteryModel(double currentCapacity, const std::vector<std::pair<double, double>>& socToOcvMap, const double nominalCapacity);
     double getSoc() const;
 	double getVoltage() const;
 	double getCurrent() const;

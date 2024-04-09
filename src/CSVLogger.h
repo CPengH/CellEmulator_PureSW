@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <sstream>
 
 class CSVLogger : public Logger {
 private:
@@ -16,7 +17,7 @@ public:
             std::cerr << "Failed to open log file for CSV Logger: " << filename << std::endl;
         } else {
             // Optionally write CSV header if file was empty/new
-            outFile << "Timestamp,LogLevel,Message\n";
+            outFile << "Timestamp,ocv,soc\n";
         }
     }
 
@@ -27,18 +28,12 @@ public:
     }
 
     void log(const std::string& message) override {
-        // Example log structure: "Timestamp,LogLevel,Message"
-        // Adjust this to fit your actual logging needs
-        std::string timestamp = getCurrentTimestamp(); // Implement this
-        std::string logLevel = "INFO"; // This should be adjusted based on actual log level
-        outFile << timestamp << "," << logLevel << ",\"" << message << "\"\n";
-    }
-    
-    // Implement getCurrentTimestamp to return a string representation of the current timestamp
-    std::string getCurrentTimestamp() {
-        // Placeholder for timestamp implementation
-        // This should return a string with the current time in your preferred format
-        return "2023-01-01 00:00:00";
+        std::istringstream iss(message);
+
+        std::string timestamp, ocv, soc;
+        iss >> timestamp >> ocv >> soc;
+        
+        outFile << timestamp << "," << ocv << "," << soc << "\n";
     }
 };
 

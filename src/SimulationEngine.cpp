@@ -28,10 +28,9 @@ void SimulationEngine::runSimulation()
         soc = capacity/batteryModel.getNominalCapacity()*100;
         batteryModel.setSoc(soc);
 
-        double vol = getOcvBySoc(soc);
-        std::cout << "SOC: " << soc << " OCV: " << vol << std::endl;
-        //logger->log("SOC = " + std::to_string(vol) + " Time = " + std::to_string(currentTime));
-        logger->log(std::to_string(vol));
+        double ocv = getOcvBySoc(soc);
+        //std::cout << "SOC: " << soc << " OCV: " << ocv << std::endl;
+        logger->log(std::to_string(currentTime) + " " + std::to_string(ocv) + " " + std::to_string(soc));
     }
 
     logger->log("Application terminated");

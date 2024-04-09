@@ -5,8 +5,8 @@
 
 #define DISPLAY_OFFSET 7
 
-BatteryModel::BatteryModel(double currentCapacity, const std::vector<std::pair<double, double>>& socToOcvMap)
-	: currentCapacity(currentCapacity), soc(100), voltage(0), current(0), isConnected(false), nominalCapacity(3500), socToOcvMap(socToOcvMap) {
+BatteryModel::BatteryModel(double currentCapacity, const std::vector<std::pair<double, double>>& socToOcvMap, const double nominalCapacity)
+	: currentCapacity(currentCapacity), soc(100), voltage(0), current(0), isConnected(false), nominalCapacity(nominalCapacity), socToOcvMap(socToOcvMap) {
     initParams();
 }
 
