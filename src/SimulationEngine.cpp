@@ -9,8 +9,6 @@ void SimulationEngine::runSimulation()
 {
     std::unique_ptr<Logger> logger = std::make_unique<CSVLogger>("log.csv");
 
-    logger->log("Application started");
-
     double capacity = batteryModel.getCurrentCapacity();
     TestStep step = testSchedule.nextStep();
 
@@ -32,8 +30,6 @@ void SimulationEngine::runSimulation()
         //std::cout << "SOC: " << soc << " OCV: " << ocv << std::endl;
         logger->log(std::to_string(currentTime) + " " + std::to_string(ocv) + " " + std::to_string(soc));
     }
-
-    logger->log("Application terminated");
 }
 
 double SimulationEngine::getOcvBySoc(double soc)
