@@ -34,7 +34,9 @@ int main(int argc, char* argv[])
 
     // Step2. Customize the test schedule
     TestSchedule schedule;
-    schedule.addStep(TestStep(CONSTANT_CURRENT, 3.5, 3600));
+    schedule.addStep(TestStep(CONSTANT_CURRENT, 3.5, 3600, 100));
+    schedule.addStep(TestStep(CONSTANT_CURRENT, -3.5, 3600, 100));
+    schedule.addStep(TestStep(CONSTANT_VOLTAGE, 4.2, 7200, 100));
     
     // Step3. Run the simulation
     SimulationEngine simEng(testModel, schedule);

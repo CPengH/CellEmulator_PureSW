@@ -12,11 +12,11 @@ This is a cross-platform project that uses CMake, and there are scripts availabl
 
 ## Demo
 
-The demo attempts to simulate an 18650 battery cell with a capacity of 3500mAh and charges it from 0% to 100% using a constant current of 3.5A (equivalent to 1C).
+The demo attempts to simulate an 18650 battery cell with a capacity of 3500mAh and charges it from 0% to 100% using a constant current of 3.5A (equivalent to 1C) and discharge it back to 0% then charging it using constant voltage of 4.2V for two hours.
 
-It will automatically generate a csv log file to document the charging process.
+It will automatically generate a csv log file to document the whole process.
 <p align="center">
-<img src="readme_preview/OCV_SOC_demo.png" width=500>
+<img src="readme_preview/CC_ChargingDischarging_CV_Charging.png" width=500>
 </p>
 
 ## Cutomize
@@ -51,7 +51,9 @@ int main()
 
     // Step2. Customize the test schedule
     TestSchedule schedule;
-    schedule.addStep(TestStep(CONSTANT_CURRENT, 3.5, 3600));
+    schedule.addStep(TestStep(CONSTANT_CURRENT, 3.5, 3600, 100));
+    schedule.addStep(TestStep(CONSTANT_CURRENT, -3.5, 3600, 100));
+    schedule.addStep(TestStep(CONSTANT_VOLTAGE, 4.2, 7200, 100));
     
     // Step3. Run the simulation
     SimulationEngine simEng(testModel, schedule);
