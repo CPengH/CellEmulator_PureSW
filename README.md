@@ -23,13 +23,30 @@ It will automatically generate a csv log file to document the whole process.
 
 There are two aspects you can customize in the current version:
 
-1. Input a different benchmark spreadsheet for various battery cells. (Future updates will enable input via Excel files.)
+1. Input a different benchmark spreadsheet for various battery cells. (Place the file in the inputExcel folder and execute the program with its path.)
+   ```
+   $ cellEmulator.exe <path_to_spreadsheet_csv>
+   ```
 2. Customize the test schedule with various currents and time durations. (Future versions will support additional control types, such as constant voltage or CCCV.)
 ```
 int main()
 {
+    std::string filePath;
+
+    if (argc == 1) {
+        filePath = "../../inputExcel/DefaultSpreadSheet.csv";
+    } else if (argc == 2) {
+        filePath = argv[0];
+    } else {
+        printHelp();
+        return 0;
+    }
+
+    // Step0. Load the spreadsheet
+    std::vector<std::pair<double, double>> socToOcvPairs = ExcelReader::readSocToOcvMap(filePath);
+
     // Step1. Input the benchmark spreadsheet for the cell
-    BatteryModel testModel(0, { { 0, 3.0 }, { 10, 3.5 }, { 20, 3.6 }, { 30, 3.65 }, { 40, 3.7 }, { 50, 3.75 }, { 60, 3.8 }, { 70, 3.85 }, { 80, 3.9 }, { 90, 4.0 }, { 100, 4.2 } }, 3500);
+    BatteryModel testModel(0, socToOcvPairs, 3500);
     testModel.displayBatteryParams();
 
     // Step2. Customize the test schedule
@@ -52,7 +69,7 @@ int main()
 
 Here are some of the features I plan to implement in the future and tasks:
 
-- [ ] Input via Excel files for a broader range of spreadsheet formats.
+- [X] Input via Excel files for a broader range of spreadsheet formats.
 - [ ] Enhanced control types for testing, including constant voltage and CCCV (Constant Current Constant Voltage).
 - [ ] Implement a more intuitive user interface for easy setup and monitoring of simulations.
 

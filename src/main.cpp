@@ -3,14 +3,33 @@
 #include "BatteryModel.h"
 #include "TestSchedule.h"
 #include "SimulationEngine.h"
-#include "FileLogger.h"
+#include "ExcelReader.h"
 #include <vector>
+#include <filesystem>
 
-int main()
+static void printHelp()
 {
+    std::cout << "Usage: cellEmulator.exe <path_to_spreadsheet_csv>" << std::endl;
+}
+
+int main(int argc, char* argv[])
+{
+    std::string filePath;
+
+    if (argc == 1) {
+        filePath = "../../inputExcel/DefaultSpreadSheet.csv";
+    } else if (argc == 2) {
+        filePath = argv[0];
+    } else {
+        printHelp();
+        return 0;
+    }
+
+    // Step0. Load the spreadsheet
+    std::vector<std::pair<double, double>> socToOcvPairs = ExcelReader::readSocToOcvMap(filePath);
+
     // Step1. Input the benchmark spreadsheet for the cell
-    BatteryModel testModel(0, { { 0, 3.0 }, { 10, 3.5 }, { 20, 3.6 }, { 30, 3.65 }, { 40, 3.7 },
-        { 50, 3.75 }, { 60, 3.8 }, { 70, 3.85 }, { 80, 3.9 }, { 90, 4.0 }, { 100, 4.2 } }, 3500);
+    BatteryModel testModel(0, socToOcvPairs, 3500);
     testModel.displayBatteryParams();
 
     // Step2. Customize the test schedule
