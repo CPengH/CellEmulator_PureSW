@@ -11,7 +11,7 @@ TestStep TestSchedule::nextStep() {
         return nextTestStep;
     }
     else {
-        return { CONSTANT_VOLTAGE, 0.0, 0.0 };
+        return { CONSTANT_VOLTAGE, 0.0, 0.0, 0.0 };
     }
 }
 

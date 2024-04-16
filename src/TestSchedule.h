@@ -11,9 +11,10 @@ struct TestStep {
     ControlType controlType;
     double value;
     double duration;
+    double logInterval;
 
-    TestStep(ControlType controlType, double value, double duration)
-        : controlType(controlType), value(value), duration(duration) {}
+    TestStep(ControlType controlType, double value, double duration, double logInterval)
+        : controlType(controlType), value(value), duration(duration), logInterval(logInterval) {}
 };
 
 class TestSchedule
